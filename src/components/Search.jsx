@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { swiggyAPI } from '../api/swiggyAPI';
 
 const Search = () => {
+  const [resturants, setRestaurants] = useState(swiggyAPI);
+
   return (
     <>
       <div className='flex items-center justify-center space-x-2'>
