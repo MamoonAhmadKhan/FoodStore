@@ -4,6 +4,18 @@ import Shimmer from './Shimmer';
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
+  const [filteredestaurants, setFilteredRestaurants] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+  
+    const handleSearch = () => {
+      const filteredRes = listOfRestaurants.filter((res) => {
+        return res.info.name.toLowerCase().includes(searchInput.toLowerCase());
+      });
+      if (filteredRes.length !== 0) {
+        setFilteredRestaurants(filteredRes);
+      }
+      setSearchInput("");
+    }
 
   useEffect(() => {
     fetchData();
@@ -13,6 +25,7 @@ const Body = () => {
     const data = await fetch("https://www.swiggy.com/mapi/restaurants/list/v5?offset=0&is-seo-homepage-enabled=true&lat=28.63270&lng=77.21980&carousel=true&third_party_vendor=1");
     const response  = await data.json();
     setListOfRestaurants(response?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    setFilteredRestaurants(response?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
   }
 
   if (listOfRestaurants.length === 0) {
@@ -29,9 +42,9 @@ const Body = () => {
           className='filter-btn mt-12 ml-10 p-3 rounded-3xl bg-amber-500 cursor-pointer font-semibold hover:bg-black hover:text-amber-500'
           onClick={() => {
             const filteredAPI = listOfRestaurants.filter((res) => {
-              return res.info.avgRating > 4.5;
+              return res.info.avgRating >= 4.5;
             });
-            setListOfRestaurants(filteredAPI);
+            setFilteredRestaurants(filteredAPI);
           }}
           >Top Rated Restaurants</button>
           <button 
@@ -40,8 +53,24 @@ const Body = () => {
           >Clear Filters</button>
         </div>
 
+        <div className='flex items-center justify-center space-x-2 mt-15'>
+        <input 
+        onChange={(e) => {
+          setSearchInput(e.target.value);
+        }}
+        className='bg-white text-black w-170 p-2 rounded-2xl border-2' 
+        type="text" 
+        placeholder='Search your favourite Food or Restaurant' 
+        value={searchInput}
+        />
+        <button 
+        onClick={handleSearch}
+        className='bg-orange-400 p-2 h-12 cursor-pointer rounded-2xl hover:bg-orange-600 hover:text-white'
+        >Search</button>
+      </div>
+
         <div className='flex flex-wrap justify-around p-22 space-y-10'>
-        {listOfRestaurants.map((res) => {
+        {filteredestaurants.map((res) => {
             return <Card 
             key={res.info.id} 
             name={res.info.name} 
