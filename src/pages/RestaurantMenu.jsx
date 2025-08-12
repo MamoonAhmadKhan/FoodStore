@@ -101,7 +101,7 @@ const RestaurantMenu = () => {
                             <p className="text-gray-500 mt-3">{ob?.card?.info?.description}</p>
                         </div>
                         <div className="pl-10 flex flex-col flex-grow items-center content-center">
-                            <img className="w-300 h-40 rounded-2xl" src={`${RestaurantMenuImageAddr}${ob?.card?.info?.imageId}`} alt="Item_Image" />
+                            <img className="w-300 h-40 rounded-2xl" src={`${RestaurantMenuImageAddr}${ob?.card?.info?.imageId || "FOOD_CATALOG/IMAGES/CMS/2024/6/29/ebaec9e4-ec93-4d8d-bf45-348e07055e1e_66590361-464b-4d62-9167-89a8f4dab4ad.JPG"}`} alt="Item_Image" />
                             <button className="w-30 text-green-500 font-bold text-xl pl-10 pr-10 pt-2 pb-2 rounded-xl shadow-2xl bg-white hover:bg-gray-300 cursor-pointer font-mono">ADD</button>
                             <p className="text-gray-400 mt-5 text-xs">Customisable</p>
                         </div>
