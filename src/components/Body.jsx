@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Card from './Card'
 import Shimmer from './Shimmer';
+import { Link } from 'react-router-dom';
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
@@ -71,8 +72,7 @@ const Body = () => {
 
         <div className='flex flex-wrap justify-around p-22 space-y-10'>
         {filteredestaurants.map((res) => {
-            return <Card 
-            key={res.info.id} 
+            return <Link key={res.info.id} to={`/restaurants/${res.info.id}`}> <Card  
             name={res.info.name} 
             cuisine={res.info.cuisines} 
             area={res.info.locality} 
@@ -80,7 +80,7 @@ const Body = () => {
             time={res.info.sla.slaString}
             costForTwo={res.info.costForTwo}
             imageID={res.info.cloudinaryImageId}
-            />
+            /> </Link>
         })}
         </div>
     </>

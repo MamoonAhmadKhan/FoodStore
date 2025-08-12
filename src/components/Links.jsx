@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 const Links = () => {
   const [authBtn, setAuthBtn] = useState("Login");
@@ -14,13 +15,10 @@ const Links = () => {
 
   return (
     <div className='text-white font-semibold text-xl flex items-center justify-center space-x-6'>
-        <a className='hover:text-black' href="#">Home</a>
-        <a className='hover:text-black' href="#">About</a>
-        <a className='hover:text-black' href="#">Cart</a>
-        <button 
-        onClick={handleAuthBtn}
-        className='cursor-pointer hover:text-black'
-        >{authBtn}</button>
+        <Link to={'/'} className='hover:text-black' >Home</Link>
+        <Link to={'/about'} className='hover:text-black' >About</Link>
+        <Link to={'/cart'} className='hover:text-black' >Cart</Link>
+        <Link to={'/auth'} className='hover:text-black' onClick={handleAuthBtn} >{authBtn}</Link>
     </div>   
   )
 }
