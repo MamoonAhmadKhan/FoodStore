@@ -54,8 +54,6 @@ const RestaurantMenu = () => {
     areaName,
   } = resInfo;
 
-  console.log(menuCards);
-
   return (
     <div className="flex flex-col w-250 h-fit m-auto mt-5 mb-5 p-5 rounded-2xl">
       <h1 className="text-3xl font-bold">{name}</h1>

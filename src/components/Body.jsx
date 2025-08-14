@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
-  const [filteredestaurants, setFilteredRestaurants] = useState([]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   
     const handleSearch = () => {
@@ -18,16 +18,16 @@ const Body = () => {
       setSearchInput("");
     }
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   const fetchData = async () => {
     const data = await fetch("https://swiggy-api-4c740.web.app/swiggy-api.json");
     const response  = await data.json();
     setListOfRestaurants(response?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
     setFilteredRestaurants(response?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
   }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   if (listOfRestaurants.length === 0) {
     return <Shimmer />
@@ -71,7 +71,7 @@ const Body = () => {
       </div>
 
         <div className='flex flex-wrap justify-around p-22 space-y-10'>
-        {filteredestaurants.map((res) => {
+        {filteredRestaurants.map((res) => {
             return <Link key={res.info.id} to={`/restaurants/${res.info.id}`}> <Card  
             name={res.info.name} 
             cuisine={res.info.cuisines} 
