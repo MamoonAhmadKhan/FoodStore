@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Card from './Card'
 import Shimmer from './Shimmer';
 import { Link } from 'react-router-dom';
+import useOnlineStatus from '../hooks/useOnlineStatus';
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
@@ -29,13 +30,23 @@ const Body = () => {
     fetchData();
   }, []);
 
+  const onlineStatus = useOnlineStatus();
+  if (!onlineStatus) {
+    return (
+      <div className='flex flex-col items-center content-center w-full h-full mt-50 mb-50'>
+        <h1 className='text-2xl font-bold'>Looks like you are Offline ?</h1>
+        <h1 className='text-2xl font-bold'>Check your Internet Connection !!</h1>
+      </div>
+    )
+  }
+
   if (listOfRestaurants.length === 0) {
     return <Shimmer />
   }
 
   return (
     <>
-        <h1 className='text-8xl font-bold text-amber-600 mt-9 ml-9 cursor-pointer hover:text-emerald-700'>FOODY</h1>
+        <h1 className='text-8xl font-bold text-amber-600 mt-9 ml-9 cursor-pointer hover:text-emerald-700 inline-block'>FOODY</h1>
         <h2 className='text-xl font-serif mt-2 ml-45'>--- a Food Delivery solution by <strong className='cursor-pointer text-cyan-950 hover:text-amber-600 hover:text-2xl'>Mamoon</strong> ---</h2>
 
         <div className="filter">
